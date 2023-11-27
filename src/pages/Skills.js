@@ -14,6 +14,10 @@ import C from '../images/C.png'
 
 import './Skills.css'
 const Skills = () => {
+    
+    const backgroundImageUrl = 'https://images.unsplash.com/photo-1438986710423-1bf13038bc14?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80';
+
+    document.body.style.backgroundImage = `url(${backgroundImageUrl})`;
 
   return (
     <div>

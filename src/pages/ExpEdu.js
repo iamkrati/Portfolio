@@ -12,6 +12,8 @@ const ExpEdu = () => {
 
         AOS.init();
     }, [])
+
+    document.body.style.backgroundColor = 'rgb(221, 228, 236)';
     return (
 
         <div >
