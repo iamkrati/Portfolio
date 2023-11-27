@@ -50,11 +50,6 @@ nav img
         text-align: center;
     }
 
-    .hoo li a:hover {
-        /* border-radius: %; */
-        text-align: center;
-        background: -webkit-linear-gradient(#ff1f98, white);
-    }
 }
 
 /* content */
