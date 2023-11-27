@@ -285,3 +285,10 @@ font-family: 'EB Garamond', serif;
         /* height: 100vh !important; */
     }
 }
+
+.projectcards
+{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+}
