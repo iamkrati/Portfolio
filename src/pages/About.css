@@ -1,0 +1,209 @@
+@import url('https://fonts.googleapis.com/css2?family=Fugaz+One&display=swap');
+/* body
+{
+    background-color: black;
+} */
+.hii{
+    /* font-family: 'Fugaz One', cursive; */
+    background-color: black !important;
+    width: 100%;
+    height: 100%;
+    margin: 0px 0px 0px 0px;
+}
+.about img{
+    margin-top: 20px;
+    margin-left: 90px;
+   height: 400px;
+   width: 350px;
+   /* filter: contrast(110%)brightness(120%); */
+}
+#me{
+    /* width: 1500px; */
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+#about{
+    text-align: center;
+}
+#information{
+    font-weight: bold;
+}
+.container-fluid h2
+{
+    font-family: 'Fredoka One', cursive;
+}
+#information h2{
+    /* width:400px; */
+    color: white;
+    overflow:hidden;
+    display: inline-block;
+    font-family: 'Fugaz One', cursive;
+    /* font-size: 40px; */
+    /* color: yellow; */
+}
+#information h2 span{
+    font-size: 40px; 
+    color: yellow;
+}
+#information p{
+    width: 450px;
+    color:grey;
+}
+.box p
+{
+    font-family: 'Fredoka One', cursive;
+}
+@media screen and (max-width:450px) {
+    #information p{
+        width: 380px;
+        text-align: center;
+    }
+    .about img{
+        margin-top: 90px;
+        /* margin-left: 90px; */
+       height: 400px;
+       width: 280px;
+       filter: contrast(100%)brightness(110%);
+    }
+    #information h2 span{
+        font-size: 30px; 
+      color: yellow;
+}
+}
+@media screen and (max-width:450px) {
+    #information p{
+        width: 100%;
+        text-align: center;
+    }
+}
+@media screen and (max-width:900px) {
+   .about img{
+    /* margin-top: 50px; */
+    width: 300px;
+    height: 410px;
+    margin: auto;
+   }
+}
+@media screen and (max-width:400px) {
+  #import{
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowwrap;
+  }
+  .about img{
+    width: 90%;
+    height: 350px;
+  }
+ }
+#information button{
+    margin-right:10px ;
+}
+#information button a{
+    text-decoration: none;
+    color: white;
+}
+.navbar-toggler {
+    background-color: white !important;
+    }
+ul li a{
+    color: white !important;
+}
+.navbar ul {
+    margin: 0px 0px 0px 427px;
+    display: flex;
+    font-size: large;
+}
+.navbar ul li {
+    margin-right: 20px;
+    color: #0000008c;
+    font-family: 'Arima', cursive;
+    font-family: 'Fredoka One', cursive;
+}
+@media only screen and (max-width: 991px) {
+    .hoo {
+        text-align: center;
+    }
+
+    .hoo li a:hover {
+        text-align: center;
+        border: 12px white;
+    }
+}
+.box{
+    width: 250px;
+    height: 120px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 40px;
+    background-color: rgba(255, 255, 255, 0.404);
+    text-align: center;
+    color: #ffef0a;
+    font-size : 22px;
+    font-family: 'Edu NSW ACT Foundation', cursive;
+}
+.box1 #internship{
+    position: absolute;
+    left:110px;
+    top:-35px;
+    background: -webkit-linear-gradient(#ffef0a, #ffffff);
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    /* padding-bottom: 50px; */
+    /* height: 150px;  */
+    font-size: 40px;
+    /* width: 150px; */
+}
+.box2 #certifications{
+    position: absolute;
+    left:110px;
+    top:-35px; 
+    background: -webkit-linear-gradient(#ffef0a, #ffffff);
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    /* padding-bottom: 50px; */
+    /* height: 150px;  */
+    font-size: 40px;
+    /* width: 150px; */
+}
+.box3 #projects{
+    position: absolute;
+    left:110px;
+    top:-35px;
+    background: -webkit-linear-gradient(#ffef0a, #ffffff);
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    /* padding-bottom: 50px; */
+    /* height: 150px;  */
+    font-size: 40px;
+    /* width: 150px; */
+}
+.box4 #organizations{
+    position: absolute;
+    left:110px;
+    top:-35px;
+    background: -webkit-linear-gradient(#ffef0a, #ffffff);
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    /* padding-bottom: 50px; */
+    /* height: 150px;  */
+    font-size: 40px;
+    /* width: 150px; */
+}
+.left{
+    margin-top: 50px;
+    display: flex;
+    flex-wrap: wrap;
+   justify-content: center;
+   align-content: center;
+}
+@import url('https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Foundation:wght@600&display=swap');
+.logo{
+    font-family: 'Edu NSW ACT Foundation', cursive;
+    /* font-size: 25px !important; */
+}
+/* .hoo a:hover
+{
+    color: yellow !important;
+} */

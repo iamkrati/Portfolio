@@ -1,0 +1,197 @@
+body {
+    font-family: 'Arima', cursive;
+    font-family: 'Fredoka One', cursive;
+    background: black;
+    width: 100%;
+    height: 100%;
+    background-size: 100% 100%;
+    margin: 0 0 0 0;
+    padding: 0px 0px 0px 0x;
+}
+
+nav img 
+{
+    width: 180px;
+    height: 67px;
+    margin-left: -34px;
+    overflow: hidden;
+}
+
+/* .navbar {
+    background: pink;
+} */
+
+/* Navigation Bar: List Styling */
+
+.navbar ul {
+    margin: 0px 0px 0px 427px;
+    display: flex;
+    font-size: large;
+}
+
+.navbar ul li {
+    margin-right: 20px;
+    color: #0000008c;
+    font-family: 'Arima', cursive;
+    font-family: 'Fredoka One', cursive;
+}
+
+/* @media only screen and (min-width: 992px) {
+    .hoo li a:hover {
+        border-radius: 25%;
+        color: #ff1f98;
+        border: 2px black;
+        box-shadow: blue 0px 0px 0px 2px inset, rgb(255, 255, 255) 10px -10px 0px -3px, rgb(31, 193, 27) 10px -10px, rgb(255, 255, 255) 20px -20px 0px -3px, rgb(255, 217, 19) 20px -20px, rgb(255, 255, 255) 30px -30px 0px -3px, rgb(255, 156, 85) 30px -30px, rgb(255, 255, 255) 40px -40px 0px -3px, rgb(255, 85, 85) 40px -40px;
+    }
+} */
+
+@media only screen and (max-width: 991px) {
+    .hoo {
+        text-align: center;
+    }
+
+    .hoo li a:hover {
+        /* border-radius: %; */
+        text-align: center;
+        background: -webkit-linear-gradient(#ff1f98, white);
+    }
+}
+
+/* content */
+.content {
+    font-family: 'Poppins', sans-serif;
+    /* font-weight: lighter; */
+    background-color: #DDE4EC;
+    width: 100%;
+    height: 600px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.container {
+    padding-top: 40px;
+    padding-right: var(--bs-gutter-x, .75rem);
+    padding-left: var(--bs-gutter-x, .75rem);
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.profile_pic {
+    margin-top: 20px;
+    border-radius: 71%;
+    width: 197px;
+    height: 251px;
+}
+
+#home-into-text {
+    margin-top: 20px;
+}
+
+.main {
+    margin-top: 20px;
+}
+
+.main i {
+    background: -webkit-linear-gradient(#ff1f98, #000000);
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    margin: 15px 15px;
+}
+
+.container b {
+    background: -webkit-linear-gradient(#ff1f98, #000000);
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+}
+
+/* sdgvb */
+.total
+{
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+}
+#leetcode{
+    text-align: center;
+    font-size: 30px;
+    width: 100%;
+    margin: 0%;
+    height: 650px;
+}
+@media screen  and (max-width:993px){
+    #leetcode{
+        text-align: center;
+        font-size: 30px;
+        width: 100%;
+        margin: 0%;
+        height: 810px;
+    }
+}
+@media screen  and (max-width:475px){
+    #leetcode{
+        text-align: center;
+        font-size: 30px;
+        width: 100%;
+        margin: 0%;
+        height: 830px;
+    }
+}
+@media screen  and (max-width:446px){
+    #leetcode{
+        text-align: center;
+        font-size: 30px;
+        width: 100%;
+        margin: 0%;
+        height: 1300px;
+    }
+}
+@media screen  and (max-width:700px){
+    #myChart{
+        margin:auto;
+        width:350px;
+         max-width:700px; 
+         height:250px;
+    }
+}
+.title-text::after{
+    content: "";
+    width: 120px;
+    height: 3px;
+    display: inline-block;
+    background-image: linear-gradient(to right,#ff1f98, #000000);
+    margin: 4px 10px;
+}
+.section-title img{
+    width: 158px;
+    height: 139px;
+}
+.total{
+    display: flex;
+    flex-wrap: wrap;
+}
+.stats{
+    margin:auto;
+    display: flex;
+    flex-wrap: wrap;
+    color: white;
+    text-align: center;
+    font-size: 30px;
+    font-family: 'Signika Negative', sans-serif;
+    /* flex-direction: row-reverse; */
+}
+.column1{
+    margin-left: 40px;
+}
+.column{
+    border-radius: 25% ;
+    /* display: flex; */
+margin-left: 30px ;
+margin-top: 40px;
+    background: -webkit-linear-gradient(#ff1f98, #000000b3);
+    width: 180px;
+    height: 150px ;
+}
+.stats .column .p{
+    font-size: 45px;
+    text-decoration: underline;
+}

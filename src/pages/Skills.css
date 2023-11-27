@@ -1,0 +1,118 @@
+.leftsection {
+    width: 50%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#leftpart1 {
+    width: 80%;
+    display: flex;
+    margin-bottom: 10px;
+}
+
+#leftpart2 {
+    width: 80%;
+    display: flex;
+    margin-bottom: 10px;
+}
+
+#leftpart3 {
+    width: 80%;
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.skills {
+    margin-top: 100px;
+    margin-left: 25px;
+    display: flex;
+    /* flex-wrap: wrap; */
+}
+
+.iconnext {
+    margin-right: 10px;
+    margin-left: 15px;
+}
+
+.skillsname {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: rgba(255, 255, 255, 0.261);
+    box-shadow: rgba(24, 59, 174, 0.218) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    width: 40%;
+    padding: 4px 4px 4px 4px;
+}
+
+.skillsname img {
+    margin: 14px 54px 14px 24px;
+    height: 70px;
+    width: 80px;
+}
+
+@media screen and (max-width:830px) {
+    .skillsname img {
+        margin: auto;
+    }
+}
+
+@media screen and (max-width:700px) {
+    .leftsection {
+        width: 100%;
+    }
+
+    .skillsname {
+        width: 100%;
+    }
+
+    .skills {
+        display: flex;
+        flex-wrap: wrap;
+        margin: auto
+    }
+
+    .skillsname img {
+        margin: 14px 0px 14px 24px;
+        height: 70px;
+        width: 80px;
+    }
+}
+
+@media screen and (max-width:300px) {
+    #leftpart1 h4 {
+        font-size: 12px;
+    }
+
+    #leftpart2 h4 {
+        font-size: 12px;
+    }
+
+    #leftpart3 h4 {
+        font-size: 12px;
+    }
+
+    #leftpart i {
+        font-size: 20px;
+    }
+}
+
+.skillsname img:hover {
+    transform: scale(1.6);
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+
+}
+
+.skillsname img {
+    transition: ease 2s;
+}
+body{
+    background-size: 100% 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+@media screen and (min-device-width: 630px)
+{
+    #myDiv{
+      height: 100vh;
+        }
+}
