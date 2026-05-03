@@ -1,251 +1,193 @@
-import React, { useEffect, useState } from 'react'
-import './Project.css'
-import LinkedGEMS from '../images/LinkedGEMS.png'
-import Leetcode from '../images/LeetcodeF.png'
-import Expense from '../images/Expense.png'
-import ecommerce from '../images/ECommerce.png'
-import portfolio from '../images/Portfolio.png'
+import React, { useEffect, useState } from 'react';
+import './Project.css';
+import LinkedGEMS from '../images/LinkedGEMS.png';
+import Leetcode from '../images/LeetcodeF.png';
+import Expense from '../images/Expense.png';
+import ecommerce from '../images/ECommerce.png';
+import medkart from '../images/medkart.png';
+import portfolio from '../images/Portfolio.png';
+
+const PROJECTS = [
+  {
+    title: 'MedKart',
+    bullets: [
+      'Personal project — online pharmacy platform (MedKart); storefront UI branded BharatMedical with search, category filters, medicine compare, and PIN delivery check.',
+      'Medicine search and catalog APIs with full-text search, category filters, and pagination.',
+      'Order flow with cart, checkout, and state machine (pending → confirmed → dispatched → delivered) with atomic inventory updates.',
+      'Email and SMS notifications on order status changes via async background tasks.',
+      'Normalized MySQL schema with indexing for read-heavy paths; JWT auth with customer vs admin roles.',
+    ],
+    image: medkart,
+    imageAlt:
+      'MedKart BharatMedical storefront: search, hero, delivery check, categories, and product grid',
+    stack: 'FastAPI · Python · MySQL · AWS · JWT · React',
+    links: [{ href: null, label: 'Repository — add when public', external: false, muted: true }],
+    screenshotClass: 'project-card-img--cover',
+  },
+  {
+    title: 'LinkedGems',
+    bullets: [
+      'Alumni–student networking portal — GLAThon champion (Mar 2023), leading a team of 3.',
+      'Real-time one-on-one chat between students and alumni.',
+      'MySQL schema for users, connections, and messaging with student vs alumni roles.',
+      'Full stack delivery with Bootstrap UI through PHP APIs within hackathon constraints.',
+    ],
+    image: LinkedGEMS,
+    imageAlt: 'LinkedGems networking app',
+    stack: 'PHP · MySQL · Bootstrap · HTML · CSS · JavaScript',
+    links: [
+      {
+        href: 'https://github.com/iamkrati/LinkedGEMS/tree/master',
+        label: 'GitHub',
+        icon: 'fa-brands fa-github',
+        external: true,
+      },
+    ],
+  },
+  {
+    title: 'Expense Tracker',
+    bullets: [
+      'Expense tracker using React hooks and Context API.',
+      'Add and delete transactions with totals persisted in MongoDB.',
+    ],
+    image: Expense,
+    imageAlt: 'Expense Tracker app',
+    stack: 'HTML · CSS · JavaScript · React · MongoDB · Node.js',
+    links: [
+      {
+        href: 'https://expense-tracker-ugzs.onrender.com/',
+        label: 'Live demo',
+        icon: 'fa-solid fa-arrow-up-right-from-square',
+        external: true,
+      },
+    ],
+  },
+  {
+    title: 'LeetCode Filter',
+    bullets: [
+      'Filter and practice LeetCode problems by topic and difficulty.',
+      'Chrome extension–style workflow for focused practice.',
+    ],
+    image: Leetcode,
+    imageAlt: 'LeetCode Filter',
+    stack: 'HTML · CSS · JavaScript · React · MongoDB · Node.js',
+    links: [
+      {
+        href: 'https://github.com/iamkrati/LeetCode-Filter',
+        label: 'GitHub',
+        icon: 'fa-brands fa-github',
+        external: true,
+      },
+    ],
+  },
+  {
+    title: 'E-Commerce Website',
+    bullets: ['Retail app with Passport-based auth, product CRUD, reviews, retailer vs customer areas.'],
+    image: ecommerce,
+    imageAlt: 'E-Commerce storefront',
+    stack: 'HTML · CSS · Bootstrap · JavaScript · LeetCode API',
+    links: [
+      {
+        href: 'https://ecomm-omnq.onrender.com/',
+        label: 'Live demo',
+        icon: 'fa-solid fa-arrow-up-right-from-square',
+        external: true,
+      },
+    ],
+  },
+  {
+    title: 'MyPortfolio',
+    bullets: ['Interactive portfolio with education, experience, skills, and project highlights.'],
+    image: portfolio,
+    imageAlt: 'Portfolio site preview',
+    stack: 'React · React Router · Bootstrap',
+    links: [
+      {
+        href: 'https://iamkrati.github.io/Krati-sPortfolio/index.html',
+        label: 'Live site',
+        icon: 'fa-solid fa-arrow-up-right-from-square',
+        external: true,
+      },
+    ],
+  },
+];
 
 const Project = () => {
+  const [pageEntered, setPageEntered] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    const mq = window.matchMedia?.('(prefers-reduced-motion: reduce)');
+    return Boolean(mq?.matches);
+  });
 
-    
-    const backgroundImageUrl = 'https://images.unsplash.com/photo-1438986710423-1bf13038bc14?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80';
+  useEffect(() => {
+    if (typeof window === 'undefined') return undefined;
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches) {
+      setPageEntered(true);
+      return undefined;
+    }
+    const id = window.requestAnimationFrame(() => setPageEntered(true));
+    return () => window.cancelAnimationFrame(id);
+  }, []);
 
-    document.body.style.backgroundImage = `url(${backgroundImageUrl})`;
+  return (
+    <div className={`projects-page${pageEntered ? ' projects-page--enter' : ''}`}>
+      <div className="projects-scrim" aria-hidden />
+      <header className="projects-header">
+        <p className="projects-eyebrow">Work</p>
+        <h1 className="projects-title">Projects</h1>
+        <p className="projects-lede">
+          Featured builds aligned with my resume; stack, scope, and links for each.
+        </p>
+      </header>
 
-    return (
-
-        <div >
-            <h3 style={{
-                textAlign: 'center',
-                marginTop: '30px',
-                background: '-webkit-linear-gradient(rgb(0 125 252), #361d1d)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                fontFamily: "'Righteous', cursive",
-            }}>Recent Work</h3>
-            <div className='projectcards'>
-                <div id="container">
-
-                    <div className="product-details">
-
-                        <h1>LinkedGEMS</h1>
-                        <span className="hint-star star">
-                            <i className="fa fa-star" aria-hidden="true"></i>
-                            <i className="fa fa-star" aria-hidden="true"></i>
-                            <i className="fa fa-star" aria-hidden="true"></i>
-                            <i className="fa fa-star" aria-hidden="true"></i>
-                            <i className="fa fa-star" aria-hidden="true"></i>
-                        </span>
-
-                        <p className="information">
-                            <ul>
-                                <li>The objective of this project is to create a platform that connects students with their
-                                    respective alumnus who are placed at renowned MNCs. It provides the students with an insight of
-                                    the placement related questions and feedbacks shared by the alumnus and their experiences at
-                                    interviews. </li>
-
-                            </ul>
-                        </p>
-
-                    </div>
-
-
-
-                    <div className="product-image">
-
-                        <img src={LinkedGEMS} alt="" />
-
-
-                        <div className="info">
-                            <h2> Description</h2>
-                            <ul>
-                                <li><strong>Tech Stack : </strong> HTML | CSS | BootStrap | JavaScript | PHP | MySQL</li>
-                                <div className="link">
-                                    <a href="https://github.com/iamkrati/LinkedGEMS/tree/master" target="_blank"><i
-                                        className="fa-brands fa-github"></i>View Project</a>
-                                </div>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="container">
-
-                    <div className="product-details">
-
-                        <h1>Expense Tracker</h1>
-                        <span className="hint-star star">
-                            <i className="fa fa-star" aria-hidden="true"></i>
-                            <i className="fa fa-star" aria-hidden="true"></i>
-                            <i className="fa fa-star" aria-hidden="true"></i>
-                            <i className="fa fa-star" aria-hidden="true"></i>
-                            <i className="fa fa-star" aria-hidden="true"></i>
-                        </span>
-
-                        <p className="information">
-                            <ul>
-                                <li>Build an Expense Tracker Application. It uses functional components with hooks and the context API.
-                                </li>
-                                <li>We can Add new transactions and reflect them in total , delete items from DOM and persist it MongoDB Database.</li>
-                            </ul>
-                        </p>
-
-                    </div>
-
-
-
-                    <div className="product-image">
-
-                        <img src={Expense} alt="" />
-
-
-                        <div className="info">
-                            <h2> Description</h2>
-                            <ul>
-                                <li><strong>Tech Stack : </strong> HTML | CSS | JavaScript | React | MongoDB | Expess JS | Node JS</li>
-                                <div className="link">
-                                    <a href="https://expense-tracker-ugzs.onrender.com/" target="_blank"><i
-                                        className="fa-brands fa-github"></i>View Project</a>
-                                </div>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="container">
-
-                    <div className="product-details">
-
-                        <h1>LeetCode Filter</h1>
-                        <span className="hint-star star">
-                            <i className="fa fa-star" aria-hidden="true"></i>
-                            <i className="fa fa-star" aria-hidden="true"></i>
-                            <i className="fa fa-star" aria-hidden="true"></i>
-                            <i className="fa fa-star" aria-hidden="true"></i>
-                            <i className="fa fa-star" aria-hidden="true"></i>
-                        </span>
-
-                        <p className="information">
-                            <ul>
-                                <li>Developed a LeetCode Filter to solve a questions on LeetCode.</li>
-                                <li>The configuration includes various user activities on a webpage, such as user’s dashboard ,
-                                    choose a
-                                    topic and question
-                                    difficulty level.</li>
-                                <li>Added Chrome Extention Feature which is very effective.
-                                </li>
-                            </ul>
-                        </p>
-
-                    </div>
-                    <div className="product-image">
-
-                        <img src={Leetcode} alt="" />
-
-
-                        <div className="info">
-                            <h2> Description</h2>
-                            <ul>
-                                <li><strong>Tech Stack : </strong> HTML | CSS | JavaScript | React | MongoDB | Expess JS | Node JS </li>
-                                <div className="link">
-                                    <a href="https://github.com/iamkrati/LeetCode-Filter" target="_blank"><i
-                                        className="fa-brands fa-github"></i>View Project</a>
-                                </div>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="container">
-
-                    <div className="product-details">
-
-                        <h1>E-Commerce Website</h1>
-                        <span className="hint-star star">
-                            <i className="fa fa-star" aria-hidden="true"></i>
-                            <i className="fa fa-star" aria-hidden="true"></i>
-                            <i className="fa fa-star" aria-hidden="true"></i>
-                            <i className="fa fa-star" aria-hidden="true"></i>
-                            <i className="fa fa-star" aria-hidden="true"></i>
-                        </span>
-
-                        <p className="information">
-                            <ul>
-                                <li>Developed a website with higher security using the passport module.</li>
-                                <li>Here we can add/delete products and there is also a review section.
-                                </li>
-                                <li>There are two sections of Retailer and Customer.
-                                </li>
-                            </ul>
-                        </p>
-
-                    </div>
-
-                    <div className="product-image">
-
-                        <img src={ecommerce} alt="" />
-
-
-                        <div className="info">
-                            <h2> Description</h2>
-                            <ul>
-                                <li><strong>Tech Stack : </strong> HTML | CSS | BootStrap | JavaScript | LeetCode API</li>
-                                <div className="link">
-                                    <a href="https://ecomm-omnq.onrender.com/" target="_blank"><i
-                                        className="fa-brands fa-github"></i>View Project</a>
-                                </div>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="container">
-
-                    <div className="product-details">
-
-                        <h1>MyPortfolio</h1>
-                        <span className="hint-star star">
-                            <i className="fa fa-star" aria-hidden="true"></i>
-                            <i className="fa fa-star" aria-hidden="true"></i>
-                            <i className="fa fa-star" aria-hidden="true"></i>
-                            <i className="fa fa-star" aria-hidden="true"></i>
-                            <i className="fa fa-star" aria-hidden="true"></i>
-                        </span>
-
-                        <p className="information">
-                            <ul>
-                                <li>Developed a interactive web application.</li>
-                                <li>Added chat support using a TIDIO live chat and also Leetcode Stat's.</li>
-                                <li>It contains all the information related to my education,experience,skills and my all social
-                                    media
-                                    links.
-                                </li>
-                            </ul>
-                        </p>
-
-                    </div>
-
-                    <div className="product-image">
-
-                        <img src={portfolio} alt="" />
-
-
-                        <div className="info">
-                            <h2> Description</h2>
-                            <ul>
-                                <li><strong>Tech Stack : </strong> HTML | CSS | BootStrap | JavaScript | LeetCode API</li>
-                                <div className="link">
-                                    <a href="https://iamkrati.github.io/Krati-sPortfolio/index.html" target="_blank"><i
-                                        className="fa-brands fa-github"></i>View Project</a>
-                                </div>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+      <div className="projects-list">
+        {PROJECTS.map((project) => (
+          <article key={project.title} className="project-card">
+            <div className="project-card-media">
+              <img
+                src={project.image}
+                alt={project.imageAlt}
+                className={`project-card-img${project.screenshotClass ? ` ${project.screenshotClass}` : ''}`}
+                loading="lazy"
+              />
             </div>
-        </div>
-    )
-}
+            <div className="project-card-body">
+              <h2 className="project-card-title">{project.title}</h2>
+              <ul className="project-card-bullets">
+                {project.bullets.map((line, i) => (
+                  <li key={`${project.title}-${i}`}>{line}</li>
+                ))}
+              </ul>
+              <p className="project-card-stack">
+                <span className="project-card-stack-label">Stack</span>
+                {project.stack}
+              </p>
+              <div className="project-card-links">
+                {project.links.map((link) =>
+                  link.href ? (
+                    <a
+                      key={link.href}
+                      className="project-link-btn"
+                      href={link.href}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {link.icon ? <i className={link.icon} aria-hidden="true" /> : null}
+                      {link.label}
+                    </a>
+                  ) : (
+                    <span key={link.label} className="project-link-muted">
+                      {link.label}
+                    </span>
+                  )
+                )}
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  );
+};
 
-export default Project
+export default Project;

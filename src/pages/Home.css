@@ -1,0 +1,374 @@
+/* Home hero + LeetCode — responsive layout (imported from Home.js) */
+
+.home-root {
+  overflow-x: hidden;
+}
+
+@keyframes home-enter-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes home-enter-card {
+  from {
+    opacity: 0;
+    transform: translateY(26px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes home-enter-float {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Initial state before mount class is applied (one frame max) */
+.home-root:not(.home-root--enter) .home-hero-card {
+  opacity: 0;
+  transform: translateY(20px) scale(0.97);
+}
+
+.home-root:not(.home-root--enter) .home-hero-card > * {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.home-root:not(.home-root--enter) .leetcode-inner {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.home-root--enter .home-hero-card {
+  animation: home-enter-card 0.78s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.home-root--enter .home-hero-card > * {
+  animation: home-enter-rise 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.home-root--enter .home-hero-card > *:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.home-root--enter .home-hero-card > *:nth-child(2) {
+  animation-delay: 0.18s;
+}
+
+.home-root--enter .home-hero-card > *:nth-child(3) {
+  animation-delay: 0.26s;
+}
+
+.home-root--enter .home-hero-card > *:nth-child(4) {
+  animation-delay: 0.34s;
+}
+
+.home-root--enter .home-hero-card > *:nth-child(5) {
+  animation-delay: 0.42s;
+}
+
+.home-root--enter .home-hero-card > *:nth-child(6) {
+  animation-delay: 0.5s;
+}
+
+.home-root--enter .leetcode-inner {
+  animation: home-enter-float 0.72s cubic-bezier(0.22, 1, 0.36, 1) 0.35s forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-root .home-hero-card,
+  .home-root .home-hero-card > *,
+  .home-root .leetcode-inner {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* Overrides legacy `.content` rules from Navbar.css */
+.content.home-hero {
+  height: auto;
+  min-height: min(92vh, 760px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1.5rem, 5vw, 3rem) 1rem;
+  background:
+    radial-gradient(ellipse 120% 80% at 50% -20%, rgba(196, 30, 106, 0.08), transparent 55%),
+    linear-gradient(165deg, #f4f7fb 0%, #e4eaf2 50%, #d5dee8 100%);
+}
+
+.home-hero-shell {
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.home-hero-card {
+  text-align: center;
+  padding: clamp(1.75rem, 4vw, 2.5rem) clamp(1.25rem, 4vw, 2rem);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow:
+    0 4px 24px rgba(15, 23, 42, 0.06),
+    0 1px 0 rgba(255, 255, 255, 0.8) inset;
+}
+
+.home-eyebrow {
+  font-family: 'Poppins', system-ui, sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #b83280;
+  margin: 0 0 0.75rem;
+}
+
+.home-heading {
+  font-family: 'Poppins', system-ui, sans-serif;
+  font-weight: 600;
+  font-size: clamp(1.35rem, 4.2vw, 1.85rem);
+  line-height: 1.35;
+  color: #0f172a;
+  margin: 0 0 1.25rem;
+}
+
+.home-hi {
+  font-weight: 500;
+  color: #475569;
+}
+
+.home-name {
+  display: inline;
+  font-weight: 700;
+  color: #0f172a;
+  background: linear-gradient(120deg, #b83280 0%, #1e3a5f 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.home-profile {
+  margin: 0 auto;
+  display: block;
+  border-radius: 50%;
+  width: min(188px, 46vw);
+  height: min(188px, 46vw);
+  object-fit: cover;
+  object-position: center 18%;
+  border: 3px solid #fff;
+  box-shadow: 0 12px 40px rgba(15, 23, 42, 0.12);
+}
+
+.home-role {
+  font-family: 'Poppins', system-ui, sans-serif;
+  margin: 1.15rem 0 0.35rem;
+  font-size: clamp(0.88rem, 2.5vw, 1.02rem);
+  color: #334155;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.home-rotate {
+  margin: 0;
+  min-height: 1.45em;
+  font-family: 'Poppins', system-ui, sans-serif;
+  font-size: clamp(0.8rem, 2.2vw, 0.92rem);
+  color: #64748b;
+  font-weight: 400;
+}
+
+.home-actions {
+  margin-top: 1.75rem;
+  display: flex;
+  justify-content: center;
+}
+
+.home-linkedin-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-width: 10rem;
+  padding: 0.65rem 1.4rem;
+  font-family: 'Poppins', system-ui, sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #fff !important;
+  text-decoration: none !important;
+  border-radius: 999px;
+  background: #0a66c2;
+  box-shadow: 0 6px 20px rgba(10, 102, 194, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.home-linkedin-btn:hover {
+  color: #fff !important;
+  background: #004182;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(10, 102, 194, 0.4);
+}
+
+.home-linkedin-btn i {
+  font-size: 1.2rem !important;
+  margin: 0 !important;
+  color: #fff !important;
+  background: none !important;
+  -webkit-text-fill-color: #fff !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-linkedin-btn:hover {
+    transform: none;
+  }
+}
+
+/* LeetCode section */
+#leetcode.leetcode-section {
+  height: auto;
+  min-height: 0;
+}
+
+.leetcode-section {
+  padding: clamp(2rem, 5vw, 3.5rem) 1rem 3rem;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.leetcode-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.72) 0%, rgba(15, 23, 42, 0.88) 100%);
+  pointer-events: none;
+}
+
+.leetcode-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.leetcode-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin: 0 0 1.5rem;
+  font-family: 'Signika Negative', sans-serif;
+  font-size: clamp(1.35rem, 4vw, 2rem);
+  color: #f8fafc;
+}
+
+.leetcode-title img {
+  width: clamp(72px, 18vw, 120px);
+  height: auto;
+  max-height: 100px;
+  object-fit: contain;
+}
+
+.leetcode-panel {
+  background: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  border: 1px solid rgba(248, 250, 252, 0.12);
+  padding: clamp(1rem, 3vw, 1.75rem);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+}
+
+.leetcode-chart-wrap {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 220px;
+  overflow: hidden;
+}
+
+.leetcode-chart-wrap > div {
+  max-width: 100%;
+}
+
+.leetcode-status {
+  text-align: center;
+  color: #e2e8f0;
+  padding: 2rem 1rem;
+  font-size: 0.95rem;
+}
+
+.leetcode-status a {
+  color: #f472b6;
+}
+
+.leetcode-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(0.5rem, 2vw, 1rem);
+  margin-top: 1.25rem;
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media screen and (max-width: 640px) {
+  .leetcode-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.leetcode-stat-card {
+  border-radius: 12px;
+  padding: 0.85rem 0.5rem;
+  text-align: center;
+  background: linear-gradient(145deg, rgba(244, 114, 182, 0.35) 0%, rgba(15, 23, 42, 0.9) 100%);
+  border: 1px solid rgba(248, 250, 252, 0.1);
+  color: #f8fafc;
+  font-family: 'Signika Negative', sans-serif;
+}
+
+.leetcode-stat-card p {
+  margin: 0 0 0.35rem;
+  font-size: clamp(0.65rem, 2vw, 0.8rem);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+.leetcode-stat-card .big {
+  font-size: clamp(1.1rem, 4vw, 1.5rem);
+  font-weight: 700;
+}
+
+.leetcode-stat-card .muted {
+  font-size: clamp(0.8rem, 2.5vw, 0.95rem);
+  opacity: 0.75;
+}
+
+.title-text::after {
+  content: '';
+  width: min(120px, 20vw);
+  height: 3px;
+  display: inline-block;
+  background: linear-gradient(to right, #f472b6, #f8fafc);
+  margin: 4px 10px;
+  vertical-align: middle;
+}

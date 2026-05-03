@@ -1,10 +1,37 @@
-import React, { useEffect ,useState} from 'react';
-import profile from '../images/profile.jpeg';
+import React, { useEffect, useState, useCallback } from 'react';
+import profile from '../images/profile.png';
 import { Chart } from 'react-google-charts';
 import backl from '../images/4853433.jpg';
 import llogo from '../images/LeetCodeLogo.png';
-const Home = () => {
+import { fetchLeetcodeUserStats, LEETCODE_USERNAME } from '../utils/leetcodeStats';
+import './Home.css';
 
+const ROTATE_PHRASES = [
+  'API design & Lambda',
+  'Voice & LLM integrations',
+  'MySQL performance',
+  'Async pipelines',
+];
+
+function useChartWidth() {
+  const [w, setW] = useState(400);
+
+  const measure = useCallback(() => {
+    if (typeof window === 'undefined') return;
+    const max = Math.min(520, window.innerWidth - 32);
+    setW(Math.max(260, max));
+  }, []);
+
+  useEffect(() => {
+    measure();
+    window.addEventListener('resize', measure);
+    return () => window.removeEventListener('resize', measure);
+  }, [measure]);
+
+  return w;
+}
+
+const Home = () => {
   const [totalSolvedQuestions, setTotalSolvedQuestions] = useState(0);
   const [hardQues, setHardQues] = useState(0);
   const [mediumQues, setMediumQues] = useState(0);
@@ -15,131 +42,194 @@ const Home = () => {
   const [tmediumQues, settMediumQues] = useState(0);
   const [teasyQues, settEasyQues] = useState(0);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('https://leetcode-stats-api.herokuapp.com/Krati_Goyal');
-        const data = await response.json();
+  const [lcLoading, setLcLoading] = useState(true);
+  const [lcError, setLcError] = useState(null);
+  /** True after a successful JSON payload (even if counts are zero). */
+  const [lcReady, setLcReady] = useState(false);
+  const [rotateIdx, setRotateIdx] = useState(0);
+  const [pageEntered, setPageEntered] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    const mq = window.matchMedia?.('(prefers-reduced-motion: reduce)');
+    return Boolean(mq?.matches);
+  });
+  const chartWidth = useChartWidth();
 
+  /** Entrance motion when the home page mounts (respect reduced motion). */
+  useEffect(() => {
+    if (typeof window === 'undefined') return undefined;
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches) {
+      setPageEntered(true);
+      return undefined;
+    }
+    const id = window.requestAnimationFrame(() => {
+      setPageEntered(true);
+    });
+    return () => window.cancelAnimationFrame(id);
+  }, []);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setRotateIdx((i) => (i + 1) % ROTATE_PHRASES.length);
+    }, 3000);
+    return () => clearInterval(id);
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    const load = async () => {
+      setLcLoading(true);
+      setLcError(null);
+      try {
+        const data = await fetchLeetcodeUserStats(LEETCODE_USERNAME);
+        if (cancelled) return;
+        if (!data) {
+          setLcReady(false);
+          setLcError('Stats temporarily unavailable.');
+          return;
+        }
+        setLcReady(true);
         setTotalSolvedQuestions(data.totalSolved);
         setHardQues(data.hardSolved);
         setMediumQues(data.mediumSolved);
         setEasyQues(data.easySolved);
-
-        setTotalQuestions(data.totalQuestions)
-        settHardQues(data.totalHard)
-        settMediumQues(data.totalMedium)
-        settEasyQues(data.totalEasy)
-
-      } catch (error) {
-        console.error(error);
+        setTotalQuestions(data.totalQuestions);
+        settHardQues(data.totalHard);
+        settMediumQues(data.totalMedium);
+        settEasyQues(data.totalEasy);
+      } catch (e) {
+        if (!cancelled) {
+          setLcReady(false);
+          setLcError('Could not load LeetCode stats.');
+        }
+      } finally {
+        if (!cancelled) setLcLoading(false);
       }
     };
 
-    fetchData();
+    load();
+    return () => {
+      cancelled = true;
+    };
   }, []);
- 
 
-  const getChartData = () => 
-  {
-    return [
-      ['Contry', 'Mhl'],
-      ['Hard', hardQues],
-      ['Medium', mediumQues],
-      ['Easy', easyQues],
-    ];
-  };
-  
+  const getChartData = () => [
+    ['Topic', 'Solved'],
+    ['Hard', hardQues],
+    ['Medium', mediumQues],
+    ['Easy', easyQues],
+  ];
+
+  const chartHasSlices = easyQues + mediumQues + hardQues > 0;
+
   return (
-    <div>
-      <section className="content" id="home">
-        <div className="container center-content">
-          <h3>Hi👋, I'm&nbsp;
-            <b id="full-name-text">Krati Goyal</b>
-          </h3>
-          <img className="profile_pic" src={profile} alt="User" />
-          <h3 id="home-into-text">
-            I am into Full Stack Development
-            <span className="txt-rotate" data-period="3000"
-              data-rotate='["JAVA Development","FrontEnd Development","WEB Development","UI/UX","Mentoring"]'></span>
-          </h3>
-          <div className="main">
-            <a href="https://github.com/iamkrati" target="_blank"> <i className=" fa-brands fa-3x fa-github"></i></a>
-            <a href="https://www.linkedin.com/in/krati-goyal-910a39212/" target="_blank">
-              <i className="fab fa-3x fa-linkedin-in"></i>
-            </a>
-            <a href="https://www.instagram.com/krati_goyal/" target="_blank">
-              <i className="fa-3x fa-brands fa-instagram"></i>
-            </a>
-            <a href="https://linktr.ee/krati_glaian" target="_blank">
-              <i className="fa-solid fa-3x fa-circle-info"></i>
-            </a>
+    <div className={`home-root${pageEntered ? ' home-root--enter' : ''}`}>
+      <section className="content home-hero" id="home">
+        <div className="home-hero-shell">
+          <div className="home-hero-card">
+            <p className="home-eyebrow">Backend &amp; platform</p>
+            <h1 className="home-heading">
+              <span className="home-hi">Hi — I&apos;m</span>{' '}
+              <span id="full-name-text" className="home-name">Krati Goyal</span>
+            </h1>
+            <img className="profile_pic home-profile" src={profile} alt="Krati Goyal" />
+            <p id="home-into-text" className="home-role">
+              Python backend engineer · FastAPI · AWS · Zenarate
+            </p>
+            <p className="home-rotate txt-rotate" aria-live="polite">
+              {ROTATE_PHRASES[rotateIdx]}
+            </p>
+            <div className="home-actions">
+              <a
+                className="home-linkedin-btn"
+                href="https://www.linkedin.com/in/krati-goyal-910a39212/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <i className="fab fa-linkedin-in" aria-hidden="true" />
+                <span>LinkedIn</span>
+              </a>
+            </div>
           </div>
         </div>
       </section>
-      <section id="leetcode" style={{ background: `url(${backl})` }}>
-        <div className="container content-div">
+
+      <section
+        id="leetcode"
+        className="leetcode-section"
+        style={{ backgroundImage: `linear-gradient(rgba(15,23,42,0.3), rgba(15,23,42,0.5)), url(${backl})` }}
+      >
+        <div className="container content-div leetcode-inner">
           <div className="row section-title">
-            <p className="title-text">
-              <img src={llogo} /> LeetCode
+            <p className="title-text leetcode-title">
+              <img src={llogo} alt="" /> LeetCode
             </p>
           </div>
-          <div className="total" >
-            <div id="myChart" style={{ margin: 'auto', height: '150px' }}>
-              <Chart
-                width={'500px'}
-                height={'280px'}
-                chartType="PieChart"
-                loader={<div>Loading Chart</div>}
-                data={getChartData()}
-                rootProps={{ 'data-testid': '1' }}
-                options={{'backgroundColor':'transparent'}}
-              />
+
+          <div className="leetcode-panel">
+            <div className="leetcode-chart-wrap" id="myChart">
+              {lcLoading ? (
+                <div className="leetcode-status">Loading stats…</div>
+              ) : lcError ? (
+                <div className="leetcode-status">
+                  {lcError}{' '}
+                  <a href={`https://leetcode.com/${LEETCODE_USERNAME}/`} target="_blank" rel="noreferrer">
+                    View profile on LeetCode
+                  </a>
+                </div>
+              ) : !chartHasSlices ? (
+                <div className="leetcode-status">No solved problems in response.</div>
+              ) : (
+                <Chart
+                  width={chartWidth}
+                  height={280}
+                  chartType="PieChart"
+                  loader={<div className="leetcode-status">Loading chart…</div>}
+                  data={getChartData()}
+                  rootProps={{ 'data-testid': '1' }}
+                  options={{
+                    backgroundColor: 'transparent',
+                    legend: { position: 'bottom', textStyle: { color: '#e2e8f0' } },
+                    chartArea: { width: '88%', height: '70%' },
+                    colors: ['#f87171', '#fbbf24', '#4ade80'],
+                  }}
+                />
+              )}
             </div>
-            <br /><br />
-            <div className="stats">
-              <div className="column1 column">
-                <p>ALL</p>
-                <span id="all">
-                  {totalSolvedQuestions}
-                </span> /
-                <span id="allques">
-                  {totalQuestions}
-                </span>
+
+            {!lcLoading && !lcError && lcReady ? (
+              <div className="leetcode-stats">
+                <div className="leetcode-stat-card">
+                  <p>All</p>
+                  <span className="big" id="all">{totalSolvedQuestions}</span>
+                  <span className="muted"> / </span>
+                  <span className="muted" id="allques">{totalQuestions}</span>
+                </div>
+                <div className="leetcode-stat-card">
+                  <p>Hard</p>
+                  <span className="big" id="hard">{hardQues}</span>
+                  <span className="muted"> / </span>
+                  <span className="muted" id="hardques">{thardQues}</span>
+                </div>
+                <div className="leetcode-stat-card">
+                  <p>Medium</p>
+                  <span className="big" id="medium">{mediumQues}</span>
+                  <span className="muted"> / </span>
+                  <span className="muted" id="mediumques">{tmediumQues}</span>
+                </div>
+                <div className="leetcode-stat-card">
+                  <p>Easy</p>
+                  <span className="big" id="easy">{easyQues}</span>
+                  <span className="muted"> / </span>
+                  <span className="muted" id="easyques">{teasyQues}</span>
+                </div>
               </div>
-              <div className="column">
-                <p>HARD</p>
-                <span id="hard">
-                  {hardQues}
-                </span> /
-                <span id="hardques">
-                  {thardQues}
-                </span>
-              </div>
-              <div className="column">
-                <p>MEDIUM</p>
-                <span id="medium">
-                  {mediumQues}
-                </span> /
-                <span id="mediumques">
-                  {tmediumQues}
-                </span>
-              </div>
-              <div className="column">
-                <p>EASY</p>
-                <span id="easy">
-                  {easyQues}
-                </span> /
-                <span id="easyques">
-                  {teasyQues}
-                </span>
-              </div>
-            </div>
+            ) : null}
           </div>
         </div>
       </section>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

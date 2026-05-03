@@ -1,77 +1,119 @@
-import React ,{useEffect, useState} from 'react'
-import './About.css'
-import Kratiimg from '../images/IMG_4220.jpg'
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import './About.css';
+import Kratiimg from '../images/profile.png';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
+const RESUME_URL =
+  'https://drive.google.com/file/d/1V8ILYBgvvULVz2JpQ6K85Tl2vRrJgAxW/view?usp=sharing';
+
+const STATS = [
+  { icon: 'fa-solid fa-briefcase', value: '2+', label: 'Years backend' },
+  { icon: 'fa-solid fa-code', value: '850+', label: 'LeetCode solved' },
+  { icon: 'fa-brands fa-app-store', value: '2', label: 'Flagship projects' },
+  { icon: 'fa-solid fa-trophy', value: '3', label: 'Key achievements' },
+];
+
 const About = () => {
+  const [pageEntered, setPageEntered] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    const mq = window.matchMedia?.('(prefers-reduced-motion: reduce)');
+    return Boolean(mq?.matches);
+  });
 
   useEffect(() => {
-    AOS.init();
-  }, [])
+    AOS.init({ once: true, duration: 700, easing: 'ease-out-cubic', offset: 32 });
+  }, []);
 
+  useEffect(() => {
+    if (typeof window === 'undefined') return undefined;
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches) {
+      setPageEntered(true);
+      return undefined;
+    }
+    const id = window.requestAnimationFrame(() => setPageEntered(true));
+    return () => window.cancelAnimationFrame(id);
+  }, []);
 
   return (
-    <div className="Hii">
-      <section className="about" >
-            <div id="me">
-                <div id="information">
-                    <h2>Hey folks,<span> I'm A Developer</span></h2>
-                    <p>Building a successfull product is a challenge, I am highly energetic in building
-                        a successfull product.
-                    </p>
-                    <br/>
-                    <div id="import">
-                        <button type="button" className="btn btn-outline-warning"><a target="_blank"
-                                href="https://drive.google.com/file/d/1gROKtBXsji5PiaSsDg1X_T0B0CcFR9y-/view">My
-                                Resume</a></button>
-                        <button type="button" className="btn btn-outline-warning"><a target="_blank"
-                                href="mailto: gkrati04@gmail.com">Hire me</a></button>
-                    </div>
-                    <br/>
+    <div className={`about-page${pageEntered ? ' about-page--enter' : ''}`}>
+      <div className="about-page-glow" aria-hidden />
 
-                    <br/>
-                </div>
-                <img data-aos="zoom-in" data-aos-duration="2000" src={Kratiimg} alt="User-Image"/>
-            </div>
-        </section>
-        <div className="left" style={{ color: 'black'}}>
-            <div className="box box1" data-aos="flip-left" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
-                <span id="internship">
-                    <i className="fa-solid fa-id-card-clip"></i>
-                </span>
-                <br/>
-                <h3>5</h3>
-                <p>Internship</p>
-            </div>
+      <section className="about-hero">
+        <div className="about-hero-inner">
+          <div className="about-intro">
+            <p className="about-eyebrow">About</p>
+            <h1 className="about-title">
+              Hey — I&apos;m <span className="about-title-accent">Krati Goyal</span>
+            </h1>
+            <p className="about-summary">
+              Python backend engineer with 2+ years building scalable APIs, serverless architectures,
+              and async data pipelines at Zenarate. End-to-end feature ownership — from DB schema design
+              to AWS Lambda deployment — with load testing, performance optimization (50%+ latency reduction),
+              and task leadership.
+            </p>
 
-            <div className="box box2" data-aos="flip-left" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
-                <span id="certifications">
-                    <i className="fa-solid fa-award"></i>
-                </span>
-                <br/>
-                <h3>10</h3>
-                <p>Certifications</p>
+            <ul className="about-meta" aria-label="Contact">
+              <li>
+                <a href="mailto:gkrati04@gmail.com">gkrati04@gmail.com</a>
+              </li>
+              <li>
+                <a href="tel:+917300696475">+91 73006 96475</a>
+              </li>
+              <li>
+                <span>Gurugram, India</span>
+              </li>
+            </ul>
+
+            <div className="about-actions">
+              <a
+                className="about-btn about-btn--primary"
+                href={RESUME_URL}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <i className="fa-solid fa-file-pdf" aria-hidden="true" />
+                Resume
+              </a>
+              <a className="about-btn about-btn--ghost" href="mailto:gkrati04@gmail.com">
+                <i className="fa-solid fa-envelope" aria-hidden="true" />
+                Hire me
+              </a>
+              <Link className="about-btn about-btn--outline" to="/project">
+                Projects
+              </Link>
             </div>
-            <div className="box box3" data-aos="flip-left" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
-                <span id="projects">
-                    <i className="fa-brands fa-app-store"></i>
-                </span>
-                <br/>
-                <h3>5</h3>
-                <p>Projects</p>
+          </div>
+
+          <div className="about-photo" data-aos="fade-left" data-aos-duration="800">
+            <div className="about-photo-frame">
+              <img src={Kratiimg} alt="Krati Goyal" width={400} height={480} />
             </div>
-            <div className="box box4" data-aos="flip-left" data-aos-easing="ease-out-cubic" data-aos-duration="2000">
-                <span id="organizations">
-                    <i className="fa-solid fa-graduation-cap"></i>
-                </span>
-                <br/>
-                <h3>3</h3>
-                <p>Organizations</p>
-            </div>
+          </div>
         </div>
-    </div>
-  )
-}
+      </section>
 
-export default About
+      <section className="about-stats" aria-label="Highlights">
+        <div className="about-stats-grid">
+          {STATS.map((item, i) => (
+            <article
+              key={item.label}
+              className="about-stat-card"
+              data-aos="fade-up"
+              data-aos-delay={80 * i}
+            >
+              <span className="about-stat-icon" aria-hidden>
+                <i className={item.icon} />
+              </span>
+              <p className="about-stat-value">{item.value}</p>
+              <p className="about-stat-label">{item.label}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+    </div>
+  );
+};
+
+export default About;

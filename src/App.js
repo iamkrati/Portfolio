@@ -1,13 +1,11 @@
-import React,{useEffect,useState} from 'react';
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
-import Navbar  from './Navbar';
+import Navbar from './Navbar';
 
 import {
   BrowserRouter as Router,
   Route,
   Routes,
-  useLocation
 } from "react-router-dom";
 
 import Home from './pages/Home';
@@ -23,15 +21,17 @@ function App() {
   return (
     <>
       <Router>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/ExpEdu" element={<ExpEdu />} />
-        <Route path="/project" element={<Project />} />
-        <Route path="/skills" element={<Skills />} />
-      </Routes>
-    </Router>
+        <Navbar />
+        <main className="site-main">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/ExpEdu" element={<ExpEdu />} />
+            <Route path="/project" element={<Project />} />
+            <Route path="/skills" element={<Skills />} />
+          </Routes>
+        </main>
+      </Router>
     </>
   );
 }
